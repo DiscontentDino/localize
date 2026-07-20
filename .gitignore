@@ -5,6 +5,8 @@
 /include
 /out
 *.tsbuildinfo
+roblox.toml
+sourcemap.json
 
 # macOS
 .DS_Store

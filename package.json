@@ -1,6 +1,6 @@
 {
     "name": "@rbxts/localize",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "Internationalization (i18n) and localization with automatic pluralization for Luau and TS. An i18next-style translation library for Roblox games.",
     "author": "LabDinos",
     "keywords": [
@@ -30,18 +30,15 @@
     "bugs": {
         "url": "https://github.com/LabDinos/localize/issues"
     },
-    "main": "out/init.lua",
+    "main": "src/init.lua",
     "scripts": {
-        "build": "rbxtsc",
-        "watch": "rbxtsc -w",
-        "prepublishOnly": "pnpm run build",
         "check": "biome check",
         "format": "biome check --fix"
     },
     "license": "ISC",
-    "types": "out/index.d.ts",
+    "types": "src/init.d.ts",
     "files": [
-        "out",
+        "src/**/*",
         "!**/*.tsbuildinfo"
     ],
     "publishConfig": {
@@ -50,9 +47,7 @@
     "devDependencies": {
         "@biomejs/biome": "^2.5.4",
         "@rbxts/compiler-types": "3.0.0-types.0",
-        "@rbxts/types": "^1.0.894",
-        "roblox-ts": "^3.0.0",
-        "typescript": "^5.9.3"
+        "@rbxts/types": "^1.0.894"
     },
     "packageManager": "pnpm@11.15.0+sha512.266f8957a30d2be6e9468e5e66bcdedd35a794175f71b067ba8504d686cce1d0c0f429b33c323c3c569ad4891e667574a49ff71d1b89a22cc66f13c65818c578"
 }

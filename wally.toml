@@ -1,0 +1,12 @@
+[package]
+name = "LabDinos/localize"
+description = "Internationalization (i18n) and localization with automatic pluralization for Luau and TS. An i18next-style translation library for Roblox games."
+version = "2.0.0"
+license = "ISC"
+authors = ["DiscontentDino"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+exclude = ["*"]
+include = ["src", "src/**", "default.project.json", "LICENSE.md", "README.md", "wally.toml", ".luaurc"]
+
+[dependencies]

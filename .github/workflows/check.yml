@@ -12,8 +12,8 @@ permissions:
     contents: read
 
 jobs:
-    check:
-        name: Check
+    check-ts:
+        name: Check (TypeScript)
         runs-on: ubuntu-latest
         steps:
           - name: Checkout Repository
@@ -32,3 +32,14 @@ jobs:
             run: pnpm install --frozen-lockfile
           - name: Check (Biome)
             run: pnpm check
+    check-luau:
+        name: Check (Luau)
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v6
+          - uses: CompeyDev/setup-rokit@v0.2.1
+          - name: Selene
+            run: selene src
+          - name: StyLua
+            run: stylua --check src

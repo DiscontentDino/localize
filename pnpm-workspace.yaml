@@ -1,3 +1,5 @@
 nodeLinker: hoisted
 provenance: true
 gitChecks: false
+allowBuilds:
+  esbuild: true

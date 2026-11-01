@@ -1,0 +1,11 @@
+name,nativeName,languageCode,cldrCode,robloxLocaleId
+English (United States),English (United States),en_US,en,en-us
+English (United Kingdom),English (United Kingdom),en_GB,en,en-gb
+Chinese (Simplified),中文（简体）,zh_CN,zh-Hans,zh-cn
+Chinese (Traditional),中文（繁體）,zh_TW,zh-Hant,zh-tw
+Japanese,日本語,ja_JP,ja,ja-jp
+Korean,한국어,ko_KR,ko,ko-kr
+Vietnamese,Tiếng Việt,vi_VN,vi,vi-vn
+Thai,ไทย,th_TH,th,th-th
+Indonesian,Bahasa Indonesia,id_ID,id,id-id
+Malay,Bahasa Melayu,ms_MY,ms,ms-my

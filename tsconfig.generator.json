@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleDetection": "force",
+        "strict": true,
+        "target": "ESNext",
+        "types": ["node"],
+        "rootDir": "generator"
+    },
+    "include": ["generator/**/*.ts"]
+}

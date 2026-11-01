@@ -30,7 +30,7 @@
     "bugs": {
         "url": "https://github.com/LabDinos/localize/issues"
     },
-    "main": "src/init.lua",
+    "main": "src/init.luau",
     "scripts": {
         "check": "biome check",
         "format": "biome check --fix"

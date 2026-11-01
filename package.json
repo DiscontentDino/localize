@@ -2,7 +2,7 @@
     "name": "@rbxts/localize",
     "version": "2.0.0",
     "description": "Internationalization (i18n) and localization with automatic pluralization for Luau and TS. An i18next-style translation library for Roblox games.",
-    "author": "LabDinos",
+    "author": "DiscontentDino",
     "keywords": [
         "roblox",
         "roblox-ts",
@@ -22,13 +22,13 @@
         "intl",
         "i18next"
     ],
-    "homepage": "https://github.com/LabDinos/localize",
+    "homepage": "https://github.com/DiscontentDino/localize",
     "repository": {
         "type": "git",
-        "url": "https://github.com/LabDinos/localize"
+        "url": "https://github.com/DiscontentDino/localize"
     },
     "bugs": {
-        "url": "https://github.com/LabDinos/localize/issues"
+        "url": "https://github.com/DiscontentDino/localize/issues"
     },
     "main": "src/init.luau",
     "scripts": {

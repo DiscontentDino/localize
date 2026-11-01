@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@rbxts/localize)](https://www.npmjs.com/package/@rbxts/localize)
 [![npm downloads](https://img.shields.io/npm/dm/@rbxts/localize)](https://www.npmjs.com/package/@rbxts/localize)
-[![license](https://img.shields.io/npm/l/@rbxts/localize)](https://github.com/LabDinos/localize/blob/main/LICENSE.md)
+[![license](https://img.shields.io/npm/l/@rbxts/localize)](https://github.com/DiscontentDino/localize/blob/main/LICENSE.md)
 
 `localize` is a runtime internationalization (i18n) and localization library for Roblox, inspired by i18next. There is no code generation and no build step: define your translations as plain data and resolve them at runtime, with CLDR-style automatic pluralization (cardinal and ordinal) built in.
 

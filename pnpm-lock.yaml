@@ -15,8 +15,11 @@ importers:
         specifier: 3.0.0-types.0
         version: 3.0.0-types.0
       '@rbxts/types':
-        specifier: ^1.0.894
-        version: 1.0.939
+        specifier: 1.0.940
+        version: 1.0.940
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
 packages:
 
@@ -80,8 +83,13 @@ packages:
   '@rbxts/compiler-types@3.0.0-types.0':
     resolution: {integrity: sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag==}
 
-  '@rbxts/types@1.0.939':
-    resolution: {integrity: sha512-8EUgqGpGLV6I98/Lc5Su8Lw6RGhairmXGuCHdX1JiS00WNNR/n0GiEol+SjERZhFR9/u1ZZOMpOUFtY4IyL1GQ==}
+  '@rbxts/types@1.0.940':
+    resolution: {integrity: sha512-F5kSGN/V005xtTSI7+JYJB4NAGU7GJnYEm3I8XquB42ldIrphiFhQypuWOPU5ke0xqNKVK8y1EI9gAxylzbuew==}
+
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
 
 snapshots:
 
@@ -122,4 +130,6 @@ snapshots:
 
   '@rbxts/compiler-types@3.0.0-types.0': {}
 
-  '@rbxts/types@1.0.939': {}
+  '@rbxts/types@1.0.940': {}
+
+  typescript@6.0.3: {}

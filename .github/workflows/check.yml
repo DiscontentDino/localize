@@ -32,6 +32,8 @@ jobs:
             run: pnpm install --frozen-lockfile
           - name: Check (Biome)
             run: pnpm check
+          - name: Check (tsconfig)
+            run: pnpm tsc --noEmit
     check-luau:
         name: Check (Luau)
         runs-on: ubuntu-latest

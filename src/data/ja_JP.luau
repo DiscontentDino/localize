@@ -25,6 +25,8 @@ return {
             ["minusSign"] = "-",
             ["plusSign"] = "+",
             ["percentSign"] = "%",
+            ["infinity"] = "∞",
+            ["nan"] = "NaN",
         },
         ["grouping"] = {
             ["primary"] = 3,

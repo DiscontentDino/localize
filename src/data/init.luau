@@ -103,7 +103,7 @@ module.LanguageMetadata = {
     ["en_GB"] = {
         name = "English (United Kingdom)",
         nativeName = "English (United Kingdom)",
-        cldrCode = "en",
+        cldrCode = "en-GB",
         robloxLocaleId = "en-gb",
     },
     ["zh_CN"] = {
@@ -176,6 +176,8 @@ export type NumberFormattingData = {
         minusSign: string,
         plusSign: string,
         percentSign: string,
+        infinity: string,
+        nan: string,
     },
     grouping: {
         primary: number,

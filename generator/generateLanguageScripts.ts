@@ -199,6 +199,8 @@ const loadNumberFormatting = async (cldrCode: string) => {
             minusSign: symbols.minusSign,
             plusSign: symbols.plusSign,
             percentSign: symbols.percentSign,
+            infinity: symbols.infinity,
+            nan: symbols.nan,
         },
         grouping: parseGrouping(decimalFormats.standard),
         compact: {

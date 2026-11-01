@@ -108,6 +108,8 @@ export interface NumberFormattingData {
         minusSign: string;
         plusSign: string;
         percentSign: string;
+        infinity: string;
+        nan: string;
     };
     /**
      * The primary and secondary grouping sizes.
@@ -271,6 +273,8 @@ export type NumberFormattingData = {
         minusSign: string,
         plusSign: string,
         percentSign: string,
+        infinity: string,
+        nan: string,
     },
     grouping: {
         primary: number,

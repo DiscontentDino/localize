@@ -1,19 +1,59 @@
 name: Publish @rbxts/localize
 
 on:
-    workflow_dispatch: null
     push:
         tags:
-            - "*"
+            - "[0-9]*"
+    release:
+        types:
+            - published
 
 permissions:
     contents: read
-    id-token: write
 
 jobs:
-    publish:
-        name: Publish
+    check-versions:
+        name: Check Versions
         runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v6
+          - name: Check Versions
+            run: |
+                npm_version="$(node -p "require('./package.json').version")"
+                wally_version="$(sed -n 's/^version = "\(.*\)"$/\1/p' wally.toml)"
+                if [ "$GITHUB_REF_NAME" != "$npm_version" ] || [ "$GITHUB_REF_NAME" != "$wally_version" ]; then
+                    echo "Tag $GITHUB_REF_NAME does not match package.json ($npm_version) and wally.toml ($wally_version)"
+                    exit 1
+                fi
+    draft-release:
+        name: Draft Release
+        needs: check-versions
+        if: github.event_name == 'push'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v6
+          - uses: CompeyDev/setup-rokit@v0.2.1
+          - name: Build
+            run: rojo build default.project.json --output localize.rbxm
+          - name: Create Draft Release
+            uses: softprops/action-gh-release@v3.0.3
+            with:
+                draft: true
+                generate_release_notes: true
+                fail_on_unmatched_files: true
+                files: localize.rbxm
+    publish-npm:
+        name: Publish to npm
+        needs: check-versions
+        if: github.event_name == 'release'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
         steps:
           - name: Checkout Repository
             uses: actions/checkout@v6
@@ -31,3 +71,21 @@ jobs:
             run: pnpm install --frozen-lockfile
           - name: Publish
             run: pnpm publish --access public --provenance
+    publish-wally:
+        name: Publish to Wally
+        needs: check-versions
+        if: github.event_name == 'release'
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v6
+          - uses: CompeyDev/setup-rokit@v0.2.1
+          - name: Login
+            run: wally login --token "$WALLY_AUTH_TOKEN"
+            env:
+                WALLY_AUTH_TOKEN: ${{ secrets.WALLY_AUTH_TOKEN }}
+          - name: Publish
+            run: |
+                output="$(wally publish)"
+                echo "$output"
+                grep -q "Package published successfully!" <<< "$output"

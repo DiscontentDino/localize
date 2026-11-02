@@ -1,5 +1,8 @@
 import type { LanguageCode } from "./data/init";
+import type { FormatOptions } from "./numbers/numberFormatter";
+
 export * from "./data/init";
+export type { FormatOptions } from "./numbers/numberFormatter";
 export { generateOperands, type Operands } from "./numbers/operands";
 export type { PluralizationCount } from "./numbers/pluralization";
 
@@ -116,6 +119,15 @@ export interface Localize {
      * @param namespaces The namespace or namespaces to add.
      */
     loadNamespaces(namespaces: string | string[]): void;
+
+    /**
+     * Format a number for the current language.
+     *
+     * @param value The number to format.
+     * @param options How to format the number.
+     * @returns The formatted number.
+     */
+    formatNumber(value: number, options?: FormatOptions): string;
 }
 
 /**

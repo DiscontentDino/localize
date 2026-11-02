@@ -2,6 +2,7 @@
 
 local dataModule = require("@self/data")
 local interpolationModule = require("@self/interpolation")
+local numberFormatterModule = require("@self/numbers/numberFormatter")
 local operandsModule = require("@self/numbers/operands")
 local pluralizationModule = require("@self/numbers/pluralization")
 
@@ -10,6 +11,7 @@ export type Metadata = dataModule.Metadata
 export type PluralizationFunctions = dataModule.PluralizationFunctions
 export type NumberFormattingData = dataModule.NumberFormattingData
 export type LanguageConfiguration = dataModule.LanguageConfiguration
+export type FormatOptions = numberFormatterModule.FormatOptions
 export type Operands = operandsModule.Operands
 export type PluralizationCount = pluralizationModule.PluralizationCount
 
@@ -146,13 +148,41 @@ local function getCandidateKeys(
 end
 
 --[=[
+    Get the configuration to format numbers with.
+
+    @param language The language.
+    @param fallback The fallback language.
+    @return The configuration.
+]=]
+local function getFormattingConfiguration(
+    language: string,
+    fallback: string?
+): LanguageConfiguration
+    local metadata: any = dataModule.LanguageMetadata
+    local code: any = "en_US"
+    if metadata[language] ~= nil then
+        code = language
+    elseif fallback ~= nil and metadata[fallback] ~= nil then
+        code = fallback
+    end
+    return dataModule.getLanguageConfiguration(code)
+end
+
+--[=[
     Replace the placeholders in a string.
 
     @param text The string.
     @param variables The values of the variables.
+    @param language The language to format numbers for.
+    @param fallback The fallback language.
     @return The interpolated string.
 ]=]
-local function interpolate(text: string, variables: { [string]: any }): string
+local function interpolate(
+    text: string,
+    variables: { [string]: any },
+    language: string,
+    fallback: string?
+): string
     local result: { string } = {}
     for _, part in interpolationModule.parse(text) do
         if type(part) == "string" then
@@ -161,10 +191,23 @@ local function interpolate(text: string, variables: { [string]: any }): string
         end
 
         local value = variables[part.name]
-        table.insert(
-            result,
-            if value == nil then `\{\{{part.raw}}}` else tostring(value)
-        )
+        local options = part.options
+        local replacement = `\{\{{part.raw}}}`
+        if part.isFormatted then
+            if type(value) == "number" and options ~= nil then
+                local configuration =
+                    getFormattingConfiguration(language, fallback)
+                replacement = numberFormatterModule.format(
+                    value,
+                    configuration.numberFormatting,
+                    configuration.pluralization.cardinal,
+                    options
+                )
+            end
+        elseif value ~= nil then
+            replacement = tostring(value)
+        end
+        table.insert(result, replacement)
     end
     return table.concat(result)
 end
@@ -265,7 +308,7 @@ function Localize.t(
             for _, candidate in candidates do
                 local text = translations[candidate]
                 if type(text) == "string" then
-                    return interpolate(text, variables)
+                    return interpolate(text, variables, language, fallback)
                 end
             end
         end
@@ -369,6 +412,28 @@ function Localize.changeLanguage(self: Localize, language: LanguageCode)
 
     if id ~= self.languageChangeId then return end
     self.language = language
+end
+
+--[=[
+    Format a number for the current language.
+
+    @param value The number to format.
+    @param options How to format the number.
+    @return The formatted number.
+]=]
+function Localize.formatNumber(
+    self: Localize,
+    value: number,
+    options: FormatOptions?
+): string
+    local configuration =
+        getFormattingConfiguration(self.language, self.fallbackLanguage)
+    return numberFormatterModule.format(
+        value,
+        configuration.numberFormatting,
+        configuration.pluralization.cardinal,
+        options
+    )
 end
 
 return {

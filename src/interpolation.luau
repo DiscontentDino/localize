@@ -1,5 +1,9 @@
 --!strict
 
+local numberFormatterModule = require("./numbers/numberFormatter")
+
+type FormatOptions = numberFormatterModule.FormatOptions
+
 local module = {}
 
 --[=[
@@ -14,6 +18,14 @@ export type Placeholder = {
         The name of the variable.
     ]=]
     name: string,
+    --[=[
+        Whether the placeholder has a format.
+    ]=]
+    isFormatted: boolean,
+    --[=[
+        The parsed format, or `nil` if the format is invalid.
+    ]=]
+    options: FormatOptions?,
 }
 
 --[=[
@@ -52,13 +64,84 @@ local function trim(text: string): string
 end
 
 --[=[
+    Parse the value of a format option.
+
+    @param name The option's name.
+    @param text The option's value, as text.
+    @return The value, or `nil` if the option or value is invalid.
+]=]
+local function parseOption(name: string, text: string): any
+    if name == "notation" then
+        return if text == "standard" or text == "compact" then text else nil
+    elseif name == "compactDisplay" then
+        return if text == "short" or text == "long" then text else nil
+    elseif name == "useGrouping" then
+        if text == "true" then return true end
+        return if text == "false" then false else nil
+    elseif
+        name == "minimumFractionDigits" or name == "maximumFractionDigits"
+    then
+        local digits = tonumber(text)
+        local isValid = digits ~= nil
+            and digits % 1 == 0
+            and digits >= 0
+            and digits <= 20
+        return if isValid then digits else nil
+    end
+    return nil
+end
+
+--[=[
+    Parse an interpolation format.
+
+    @param format The format.
+    @return The options, or `nil` if the format is invalid.
+]=]
+local function parseFormat(format: string): FormatOptions?
+    local name = format
+    local body = ""
+    local open = format:find("(", 1, true)
+    if open ~= nil then
+        if format:sub(-1) ~= ")" then return nil end
+        name = trim(format:sub(1, open - 1))
+        body = format:sub(open + 1, -2)
+    end
+    if name ~= "number" then return nil end
+
+    local options: any = {}
+    for _, entry in body:split(";") do
+        local trimmed = trim(entry)
+        if trimmed ~= "" then
+            local colon = trimmed:find(":", 1, true)
+            if colon == nil then return nil end
+
+            local key = trim(trimmed:sub(1, colon - 1))
+            local value = parseOption(key, trim(trimmed:sub(colon + 1)))
+            if value == nil then return nil end
+            options[key] = value
+        end
+    end
+    return options
+end
+
+--[=[
     Parse the text between the braces of a placeholder.
 
     @param raw The text.
     @return The placeholder.
 ]=]
 local function parsePlaceholder(raw: string): Placeholder
-    return { raw = raw, name = trim(raw) }
+    local comma = raw:find(",", 1, true)
+    if comma == nil then
+        return { raw = raw, name = trim(raw), isFormatted = false }
+    end
+
+    return {
+        raw = raw,
+        name = trim(raw:sub(1, comma - 1)),
+        isFormatted = true,
+        options = parseFormat(trim(raw:sub(comma + 1))),
+    }
 end
 
 --[=[

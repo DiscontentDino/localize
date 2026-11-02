@@ -88,6 +88,11 @@ export interface Localize {
     readonly language: LanguageCode;
 
     /**
+     * Fires after the current language changes.
+     */
+    readonly LanguageChanged: RBXScriptSignal<(language: LanguageCode) => void>;
+
+    /**
      * Translate a key.
      *
      * @param key The key, optionally prefixed with a namespace.

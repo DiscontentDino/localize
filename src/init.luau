@@ -5,6 +5,7 @@ local interpolationModule = require("@self/interpolation")
 local numberFormatterModule = require("@self/numbers/numberFormatter")
 local operandsModule = require("@self/numbers/operands")
 local pluralizationModule = require("@self/numbers/pluralization")
+local signalModule = require("@self/signal")
 
 export type LanguageCode = dataModule.LanguageCode
 export type Metadata = dataModule.Metadata
@@ -14,6 +15,8 @@ export type LanguageConfiguration = dataModule.LanguageConfiguration
 export type FormatOptions = numberFormatterModule.FormatOptions
 export type Operands = operandsModule.Operands
 export type PluralizationCount = pluralizationModule.PluralizationCount
+export type Connection = signalModule.Connection
+export type Signal<T> = signalModule.Signal<T>
 
 --[=[
     The translations of a namespace, by key.
@@ -91,6 +94,8 @@ type Fields = {
     pluralSeparator: string,
     namespaceSeparator: string | false,
     languageChangeId: number,
+    LanguageChanged: Signal<LanguageCode>,
+    fireLanguageChanged: (language: LanguageCode) -> (),
 }
 
 local Localize = {}
@@ -236,6 +241,8 @@ function Localize.new(options: LocalizeOptions): Localize
         or (namespaces and namespaces[1])
         or "translation"
 
+    local languageChanged, fireLanguageChanged = signalModule.new()
+
     local self: Fields = {
         language = options.language,
         fallbackLanguage = options.fallbackLanguage,
@@ -250,6 +257,8 @@ function Localize.new(options: LocalizeOptions): Localize
             then ":"
             else options.namespaceSeparator,
         languageChangeId = 0,
+        LanguageChanged = languageChanged,
+        fireLanguageChanged = fireLanguageChanged,
     }
 
     local instance: any = setmetatable(self, Localize)
@@ -412,6 +421,7 @@ function Localize.changeLanguage(self: Localize, language: LanguageCode)
 
     if id ~= self.languageChangeId then return end
     self.language = language
+    self.fireLanguageChanged(language)
 end
 
 --[=[

@@ -23,6 +23,7 @@ export type NumberFormattingData = {
     grouping: {
         primary: number,
         secondary: number,
+        minimum: number,
     },
     compact: {
         short: { [string]: { [string]: string } },
@@ -246,10 +247,12 @@ local function formatCompact(
         maximumFractionDigits,
         minimumGroupedDigits
     )
-    local operands =
-        operandsModule.generateOperands(mantissa * 10 ^ exponent, nil, exponent)
-    local pattern = bucket[cardinal(operands)] or other
+    local operands = operandsModule.generateOperands(mantissa, nil, exponent)
+    local exactPattern = if mantissa == 1 then bucket["1"] else nil
+    local pattern = exactPattern or bucket[cardinal(operands)] or other
     local first, last = findZeros(pattern)
+    if first == nil then return pattern end
+
     return pattern:sub(1, (first :: number) - 1)
         .. mantissaText
         .. pattern:sub((last :: number) + 1)
@@ -285,6 +288,8 @@ function module.format(
     local minimumGroupedDigits = if resolved.useGrouping == false
         then math.huge
         elseif resolved.useGrouping == nil and isCompact then 5
+        elseif resolved.useGrouping == nil then data.grouping.primary
+            + data.grouping.minimum
         else 1
 
     local sign = if value < 0 then data.symbols.minusSign else ""

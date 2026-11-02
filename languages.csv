@@ -1,11 +1,19 @@
 name,nativeName,languageCode,cldrCode,robloxLocaleId
-English (United States),English (United States),en_US,en,en-us
+German,Deutsch,de_DE,de,de-de
 English (United Kingdom),English (United Kingdom),en_GB,en-GB,en-gb
-Chinese (Simplified),中文（简体）,zh_CN,zh-Hans,zh-cn
-Chinese (Traditional),中文（繁體）,zh_TW,zh-Hant,zh-tw
+English (United States),English (United States),en_US,en,en-us
+Spanish (Spain),Español (España),es_ES,es,es-es
+French (France),Français (France),fr_FR,fr,fr-fr
+Indonesian,Bahasa Indonesia,id_ID,id,id-id
+Italian,Italiano,it_IT,it,it-it
 Japanese,日本語,ja_JP,ja,ja-jp
 Korean,한국어,ko_KR,ko,ko-kr
-Vietnamese,Tiếng Việt,vi_VN,vi,vi-vn
-Thai,ไทย,th_TH,th,th-th
-Indonesian,Bahasa Indonesia,id_ID,id,id-id
 Malay,Bahasa Melayu,ms_MY,ms,ms-my
+Polish,Polski,pl_PL,pl,pl-pl
+Portuguese (Brazil),Português (Brasil),pt_BR,pt,pt-br
+Russian,Русский,ru_RU,ru,ru-ru
+Thai,ไทย,th_TH,th,th-th
+Turkish,Türkçe,tr_TR,tr,tr-tr
+Vietnamese,Tiếng Việt,vi_VN,vi,vi-vn
+Chinese (Simplified),中文（简体）,zh_CN,zh-Hans,zh-cn
+Chinese (Traditional),中文（繁體）,zh_TW,zh-Hant,zh-tw

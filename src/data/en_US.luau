@@ -41,6 +41,7 @@ return {
         ["grouping"] = {
             ["primary"] = 3,
             ["secondary"] = 3,
+            ["minimum"] = 1,
         },
         ["compact"] = {
             ["short"] = {

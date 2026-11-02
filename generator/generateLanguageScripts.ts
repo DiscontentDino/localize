@@ -157,7 +157,7 @@ const parseCompact = (raw: Record<string, string>): CompactPatterns => {
             continue;
         }
         if (!result[magnitude]) result[magnitude] = {};
-        result[magnitude][count] = pattern;
+        result[magnitude][count] = pattern.replaceAll("'", "");
     }
     return result;
 };
@@ -202,7 +202,10 @@ const loadNumberFormatting = async (cldrCode: string) => {
             infinity: symbols.infinity,
             nan: symbols.nan,
         },
-        grouping: parseGrouping(decimalFormats.standard),
+        grouping: {
+            ...parseGrouping(decimalFormats.standard),
+            minimum: Number(numbers.minimumGroupingDigits),
+        },
         compact: {
             short: parseCompact(decimalFormats.short.decimalFormat),
             long: parseCompact(decimalFormats.long.decimalFormat),

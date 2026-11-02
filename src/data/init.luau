@@ -13,47 +13,71 @@ local module = {}
     A supported language for localization.
 ]=]
 export type LanguageCode =
-    | "en_US"
+    | "de_DE"
     | "en_GB"
-    | "zh_CN"
-    | "zh_TW"
+    | "en_US"
+    | "es_ES"
+    | "fr_FR"
+    | "id_ID"
+    | "it_IT"
     | "ja_JP"
     | "ko_KR"
-    | "vi_VN"
-    | "th_TH"
-    | "id_ID"
     | "ms_MY"
+    | "pl_PL"
+    | "pt_BR"
+    | "ru_RU"
+    | "th_TH"
+    | "tr_TR"
+    | "vi_VN"
+    | "zh_CN"
+    | "zh_TW"
 
 --[=[
     The supported languages for localization.
 ]=]
 module.LanguageCodes = {
-    "en_US",
+    "de_DE",
     "en_GB",
-    "zh_CN",
-    "zh_TW",
+    "en_US",
+    "es_ES",
+    "fr_FR",
+    "id_ID",
+    "it_IT",
     "ja_JP",
     "ko_KR",
-    "vi_VN",
-    "th_TH",
-    "id_ID",
     "ms_MY",
+    "pl_PL",
+    "pt_BR",
+    "ru_RU",
+    "th_TH",
+    "tr_TR",
+    "vi_VN",
+    "zh_CN",
+    "zh_TW",
 } :: { LanguageCode }
 
 --[=[
     Internal mapping of Roblox `LocaleId`s to supported `LanguageCode`s.
 ]=]
 local robloxLocaleIds: { [string]: LanguageCode } = {
-    ["en-us"] = "en_US",
+    ["de-de"] = "de_DE",
     ["en-gb"] = "en_GB",
-    ["zh-cn"] = "zh_CN",
-    ["zh-tw"] = "zh_TW",
+    ["en-us"] = "en_US",
+    ["es-es"] = "es_ES",
+    ["fr-fr"] = "fr_FR",
+    ["id-id"] = "id_ID",
+    ["it-it"] = "it_IT",
     ["ja-jp"] = "ja_JP",
     ["ko-kr"] = "ko_KR",
-    ["vi-vn"] = "vi_VN",
-    ["th-th"] = "th_TH",
-    ["id-id"] = "id_ID",
     ["ms-my"] = "ms_MY",
+    ["pl-pl"] = "pl_PL",
+    ["pt-br"] = "pt_BR",
+    ["ru-ru"] = "ru_RU",
+    ["th-th"] = "th_TH",
+    ["tr-tr"] = "tr_TR",
+    ["vi-vn"] = "vi_VN",
+    ["zh-cn"] = "zh_CN",
+    ["zh-tw"] = "zh_TW",
 }
 
 --[=[
@@ -94,11 +118,11 @@ export type Metadata = {
     A mapping of supported languages to their metadata.
 ]=]
 module.LanguageMetadata = {
-    ["en_US"] = {
-        name = "English (United States)",
-        nativeName = "English (United States)",
-        cldrCode = "en",
-        robloxLocaleId = "en-us",
+    ["de_DE"] = {
+        name = "German",
+        nativeName = "Deutsch",
+        cldrCode = "de",
+        robloxLocaleId = "de-de",
     },
     ["en_GB"] = {
         name = "English (United Kingdom)",
@@ -106,17 +130,35 @@ module.LanguageMetadata = {
         cldrCode = "en-GB",
         robloxLocaleId = "en-gb",
     },
-    ["zh_CN"] = {
-        name = "Chinese (Simplified)",
-        nativeName = "中文（简体）",
-        cldrCode = "zh-Hans",
-        robloxLocaleId = "zh-cn",
+    ["en_US"] = {
+        name = "English (United States)",
+        nativeName = "English (United States)",
+        cldrCode = "en",
+        robloxLocaleId = "en-us",
     },
-    ["zh_TW"] = {
-        name = "Chinese (Traditional)",
-        nativeName = "中文（繁體）",
-        cldrCode = "zh-Hant",
-        robloxLocaleId = "zh-tw",
+    ["es_ES"] = {
+        name = "Spanish (Spain)",
+        nativeName = "Español (España)",
+        cldrCode = "es",
+        robloxLocaleId = "es-es",
+    },
+    ["fr_FR"] = {
+        name = "French (France)",
+        nativeName = "Français (France)",
+        cldrCode = "fr",
+        robloxLocaleId = "fr-fr",
+    },
+    ["id_ID"] = {
+        name = "Indonesian",
+        nativeName = "Bahasa Indonesia",
+        cldrCode = "id",
+        robloxLocaleId = "id-id",
+    },
+    ["it_IT"] = {
+        name = "Italian",
+        nativeName = "Italiano",
+        cldrCode = "it",
+        robloxLocaleId = "it-it",
     },
     ["ja_JP"] = {
         name = "Japanese",
@@ -130,11 +172,29 @@ module.LanguageMetadata = {
         cldrCode = "ko",
         robloxLocaleId = "ko-kr",
     },
-    ["vi_VN"] = {
-        name = "Vietnamese",
-        nativeName = "Tiếng Việt",
-        cldrCode = "vi",
-        robloxLocaleId = "vi-vn",
+    ["ms_MY"] = {
+        name = "Malay",
+        nativeName = "Bahasa Melayu",
+        cldrCode = "ms",
+        robloxLocaleId = "ms-my",
+    },
+    ["pl_PL"] = {
+        name = "Polish",
+        nativeName = "Polski",
+        cldrCode = "pl",
+        robloxLocaleId = "pl-pl",
+    },
+    ["pt_BR"] = {
+        name = "Portuguese (Brazil)",
+        nativeName = "Português (Brasil)",
+        cldrCode = "pt",
+        robloxLocaleId = "pt-br",
+    },
+    ["ru_RU"] = {
+        name = "Russian",
+        nativeName = "Русский",
+        cldrCode = "ru",
+        robloxLocaleId = "ru-ru",
     },
     ["th_TH"] = {
         name = "Thai",
@@ -142,17 +202,29 @@ module.LanguageMetadata = {
         cldrCode = "th",
         robloxLocaleId = "th-th",
     },
-    ["id_ID"] = {
-        name = "Indonesian",
-        nativeName = "Bahasa Indonesia",
-        cldrCode = "id",
-        robloxLocaleId = "id-id",
+    ["tr_TR"] = {
+        name = "Turkish",
+        nativeName = "Türkçe",
+        cldrCode = "tr",
+        robloxLocaleId = "tr-tr",
     },
-    ["ms_MY"] = {
-        name = "Malay",
-        nativeName = "Bahasa Melayu",
-        cldrCode = "ms",
-        robloxLocaleId = "ms-my",
+    ["vi_VN"] = {
+        name = "Vietnamese",
+        nativeName = "Tiếng Việt",
+        cldrCode = "vi",
+        robloxLocaleId = "vi-vn",
+    },
+    ["zh_CN"] = {
+        name = "Chinese (Simplified)",
+        nativeName = "中文（简体）",
+        cldrCode = "zh-Hans",
+        robloxLocaleId = "zh-cn",
+    },
+    ["zh_TW"] = {
+        name = "Chinese (Traditional)",
+        nativeName = "中文（繁體）",
+        cldrCode = "zh-Hant",
+        robloxLocaleId = "zh-tw",
     },
 } :: { [LanguageCode]: Metadata }
 
@@ -182,6 +254,7 @@ export type NumberFormattingData = {
     grouping: {
         primary: number,
         secondary: number,
+        minimum: number,
     },
     compact: {
         short: { [string]: { [string]: string } },

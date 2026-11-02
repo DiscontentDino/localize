@@ -7,16 +7,24 @@ import type { PluralizationCount } from "../numbers/pluralization";
  */
 export const LanguageCodes: Readonly<
     [
-        "en_US",
+        "de_DE",
         "en_GB",
-        "zh_CN",
-        "zh_TW",
+        "en_US",
+        "es_ES",
+        "fr_FR",
+        "id_ID",
+        "it_IT",
         "ja_JP",
         "ko_KR",
-        "vi_VN",
-        "th_TH",
-        "id_ID",
         "ms_MY",
+        "pl_PL",
+        "pt_BR",
+        "ru_RU",
+        "th_TH",
+        "tr_TR",
+        "vi_VN",
+        "zh_CN",
+        "zh_TW",
     ]
 >;
 
@@ -110,21 +118,27 @@ export interface NumberFormattingData {
         nan: string;
     };
     /**
-     * The primary and secondary grouping sizes.
+     * The primary and secondary grouping sizes, and the minimum grouping
+     * digits.
      */
     grouping: {
         primary: number;
         secondary: number;
+        minimum: number;
     };
     /**
      * Compact decimal patterns, by magnitude then plural count.
      */
     compact: {
         short: {
-            [magnitude: string]: Partial<Record<PluralizationCount, string>>;
+            [magnitude: string]: Partial<
+                Record<PluralizationCount | "1", string>
+            >;
         };
         long: {
-            [magnitude: string]: Partial<Record<PluralizationCount, string>>;
+            [magnitude: string]: Partial<
+                Record<PluralizationCount | "1", string>
+            >;
         };
     };
 }

@@ -112,21 +112,27 @@ export interface NumberFormattingData {
         nan: string;
     };
     /**
-     * The primary and secondary grouping sizes.
+     * The primary and secondary grouping sizes, and the minimum grouping
+     * digits.
      */
     grouping: {
         primary: number;
         secondary: number;
+        minimum: number;
     };
     /**
      * Compact decimal patterns, by magnitude then plural count.
      */
     compact: {
         short: {
-            [magnitude: string]: Partial<Record<PluralizationCount, string>>;
+            [magnitude: string]: Partial<
+                Record<PluralizationCount | "1", string>
+            >;
         };
         long: {
-            [magnitude: string]: Partial<Record<PluralizationCount, string>>;
+            [magnitude: string]: Partial<
+                Record<PluralizationCount | "1", string>
+            >;
         };
     };
 }
@@ -279,6 +285,7 @@ export type NumberFormattingData = {
     grouping: {
         primary: number,
         secondary: number,
+        minimum: number,
     },
     compact: {
         short: { [string]: { [string]: string } },

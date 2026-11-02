@@ -1,4 +1,4 @@
-name: Publish @rbxts/localize
+name: Publish
 
 on:
     push:
